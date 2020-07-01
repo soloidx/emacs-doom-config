@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: dir-locals-python
+# uuid: dir-locals-python
+# key: trigger-key
+# condition: t
+# --
+
+((python-mode
+  ;; (lsp-python-ms-python-executable-cmd . "~/\.venvs/threader-api-TPwesmEt/bin/python3")
+  (lsp-python-ms-extra-paths . "[./threader_parser, ./threader_service]")
+  (flycheck-python-mypy-ini . "pyproject.toml")
+  (flycheck-pylintrc . "pyproject.toml")
+  (flycheck-disabled-checkers)
+  (eval set-formatter! 'black "black -q -l 80 -")))

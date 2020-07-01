@@ -1,0 +1,69 @@
+# -*- mode: snippet -*-
+# name: test_flask_functional
+# uuid: test_flask_functional
+# key: trigger-key
+# condition: t
+# --
+# pylint: disable=redefined-outer-name,unused-argument
+import os
+import tempfile
+
+import pytest  # type: ignore
+from flask import Flask
+from sqlalchemy import create_engine
+
+# insert model later here
+# from ${1:path.to.model} import ${2:models}
+
+# import SUT here
+from ${3:path.to.sut} import router
+from ${4:path.to.sut} import settings
+
+# insert the blueprint into an app so it can be testable
+app = Flask(__name__)
+app.register_blueprint(router.${5:blueprint}, url_prefix="")
+
+
+@pytest.fixture
+def client():
+    """ app and database initialization """
+    # db_file, db_filename = tempfile.mkstemp()
+    app.config["TESTING"] = True
+
+    with app.test_client() as cli:
+        # with app.app_context():
+        #     flaskr.init_db()
+        yield cli
+
+    # os.close(db_fd)
+    # os.unlink(db_filename)
+
+
+@pytest.fixture(scope="module")
+def db_connection():
+    """ standalone database initialization """
+    db_file, db_filename = tempfile.mkstemp()
+
+    old_settings = settings.DATABASE_URL
+    settings.DATABASE_URL = f"sqlite:///{db_filename}"
+
+    engine = create_engine(settings.DATABASE_URL)
+    models.Base.metadata.create_all(engine)
+
+    yield
+
+    settings.DATABASE_URL = old_settings
+    os.close(db_file)
+    os.unlink(db_filename)
+
+
+def test_example():
+    assert True
+
+
+def test_example2(client, db_connection):
+
+    response = client.get("/")
+
+    assert response.status_code == 200
+    assert response.json == []
