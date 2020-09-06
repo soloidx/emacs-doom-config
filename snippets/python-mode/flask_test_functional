@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: flask_test_functional
+# uuid: flask_test_functionsl
+# expand-env: ((yas/indent-line 'fixed))
+# --
+
+def test_${1:test_name}(client, db):
+
+    response = client.get("/${2:path}")
+
+    assert response.status_code == 200
+    assert response.json == {
+        "foo": "bar",
+    }
