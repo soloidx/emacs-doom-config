@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: poetry-basic-config
+# uuid: poetry-basic-config
+# --
+
+[tool.pylint.format]
+max-line-length = "80"
+
+[tool.pylint.message_control]
+disable = """
+    bad-continuation,
+    missing-function-docstring,
+    missing-module-docstring,
+    missing-class-docstring,
+"""
+
+[tool.pylint.TYPECHECK]
+ignored-classes = "Session, scoped_session"
+ignored-modules= "flask_sqlalchemy"
+
+[tool.mypy]
+plugins = "sqlmypy"
+strict_optional = "False"
