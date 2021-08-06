@@ -174,3 +174,6 @@
    (ispell-hunspell-add-multi-dic "en_US,es_PE")
    (setq ispell-dictionary "en_US,es_PE")
    )
+
+;; Wakatime
+(global-wakatime-mode)
