@@ -52,4 +52,3 @@
 (package! dash-at-point)
 (package! nyan-mode)
 (package! wakatime-mode)
-;; (package! org-roam-server)

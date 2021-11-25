@@ -121,6 +121,7 @@
  (setq lsp-diagnostics-provider :none)
  (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\.mypy_cache\\'")
  (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\.venv\\'")
+ (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\venv\\'")
  (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\nltk_data\\'")
  (add-to-list 'lsp-file-watch-ignored "[/\\\\]flycheck_[^/\\\\]*\\.py\\'")
 )
@@ -175,5 +176,21 @@
    (setq ispell-dictionary "en_US,es_PE")
    )
 
+;; Org mode
+(after! org
+  (setq org-log-done 'time))
+(use-package! org-fancy-priorities
+  :hook (org-mode . org-fancy-priorities-mode)
+  :config
+  (setq org-fancy-priorities-list '("⚡" "⬆" "⬇" "☕")))
+
+;; Deft
+(setq deft-directory "~/Dropbox/org/"
+      deft-extensions '("org", "txt", "gpg")
+      deft-recursive t)
+
 ;; Wakatime
 (global-wakatime-mode)
+
+;; user configuration
+(setq-default enable-local-variables t)
